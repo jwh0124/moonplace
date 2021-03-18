@@ -1,23 +1,8 @@
----
-title: Moon Place
-
-categories:
-  - Dev
-tags:
-  - Plan
-  
-toc: true
-toc_sticky: true
-toc_label: "페이지 주요 목차"
-
-last_modified_at: 2021-03-18T15:40:00+09:00
----
-
-## Moon Place ##
+# Moon Place #
 
 > 맛집 리스트 서비스
 
-### Project Dec ###
+## Project Dec ##
 
 - 프로젝트명 : MoonPlace
 - 프로젝트 기술 스팩
