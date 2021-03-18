@@ -36,6 +36,4 @@
 - 메뉴 및 음식점 추천 (Open API -> Crawling)
 - 네비게이션 App 연동
 - 채팅 서비스
-- `:bowtie:` Kakao Message 서비스
-
-> `:smirk:`
+- :open_mouth: Kakao Message 서비스
