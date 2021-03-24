@@ -15,12 +15,10 @@
   - App : ?
 - 기획
   - [요구사항](doc/needs.md)
-  - 카테고리
-    - 로그인
-    - 맛집
-  - 서비스 기능 및 화면 리스트
-  - 메뉴 트리
+  - [카테고리](doc/category.md)
+  - [서비스 기능](https://docs.google.com/spreadsheets/d/1GgFxd_WXzJvRWXY6sN0XYZSP_Jj8-zFn3bKCin17iK4/edit?usp=sharing)
+  - 메뉴 트리 & 화면 리스트
 - 설계
-  - ERD
+  - [ERD](doc/erd.mwb)
   - 화면 설계서
 - 개발
