@@ -1,6 +1,6 @@
 # Moon Place #
 
-> 맛집 리스트 서비스
+> 맛집 리스트 서비스 (개인 프로젝트)
 
 ## Project Dec ##
 
@@ -13,13 +13,13 @@
     - React
   - App : 추 후 기술 검토 및 구현
 - 기획
-  - [요구사항](doc/needs.md)
-  - [Category](doc/category.md)
+  - [Requirements](doc/requirements.md)
   - [Service Feature](https://docs.google.com/spreadsheets/d/1GgFxd_WXzJvRWXY6sN0XYZSP_Jj8-zFn3bKCin17iK4/edit?usp=sharing)
-  - 메뉴 트리
+  - [Menu List](doc/menu_tree.md)
 - 설계
   - [ERD](doc/erd.mwb)
   - 화면 설계서
 - 개발
   - [Naming Convention](doc/naming.md)
+  - [Project Folder Structure](doc/folder_structure.md)
   - [API Specification](doc/api_specification.md)
