@@ -17,6 +17,7 @@
   - [Service Feature](https://docs.google.com/spreadsheets/d/1GgFxd_WXzJvRWXY6sN0XYZSP_Jj8-zFn3bKCin17iK4/edit?usp=sharing)
   - [Menu List](doc/menu_tree.md)
 - 설계
+  - [Architecture](doc/architecture.md)
   - [ERD](doc/erd.mwb)
   - 화면 설계서
 - 개발
