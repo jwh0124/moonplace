@@ -21,3 +21,18 @@
 - Author : Circle Jung
 - Description : Personal Project Moon Place API
 - Package name : edu.circle.moonplace.api
+
+#### API Service Folder Structure ####
+
+- api
+  - biz
+    - domain 별
+      - controller
+      - service
+      - repository
+      - entity
+  - common
+    - exception
+    - utils
+  - config
+- MoonplaceApiApplication.java
