@@ -28,7 +28,7 @@ public class TagController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("{/tagId}")
+    @GetMapping(path = "/{tagId}")
     public TagDto getTag(@PathVariable Long tagId) {
         return modelMapper.map(tagService.retrieveTag(tagId), TagDto.class);
     }
