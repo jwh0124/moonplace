@@ -4,9 +4,9 @@
 
 ## Menu Tree ##
 
-- Admin
-- Place
-- Tag
-- Area
-- Reply
-- Config
+- Tag (1)
+- Setting (2)
+- Admin (3)
+- Place (4)
+- Area (5)
+- Reply (6)

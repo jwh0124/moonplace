@@ -11,7 +11,7 @@
 	<groupId>edu.circle.moonplace</groupId>
 	<artifactId>auth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>moonplace-api</name>
+	<name>moonplace-auth</name>
 	<description>Personal Project Moon Place Auth</description>
 	<properties>
 		<java.version>11</java.version>
