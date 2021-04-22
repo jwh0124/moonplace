@@ -1,3 +1,15 @@
 spring:
     profiles:
         active: local
+    devtools:
+        add-properties: false
+    jpa:
+        show-sql: true
+        generate-ddl: true
+        hibernate:
+            ddl-auto: validate
+        open-in-view: false
+                
+
+    flyway:
+        check-location: false

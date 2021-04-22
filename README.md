@@ -24,3 +24,5 @@
   - [Naming Convention](doc/naming.md)
   - [Project Folder Structure](doc/folder_structure.md)
   - [API Specification](doc/api_specification.md)
+- Reference Doc
+  - [MappedSuperClass](https://ict-nroo.tistory.com/129)

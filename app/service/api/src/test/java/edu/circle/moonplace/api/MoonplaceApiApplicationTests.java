@@ -1,5 +1,7 @@
 package edu.circle.moonplace.api;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -7,7 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 class MoonplaceApiApplicationTests {
 
 	@Test
-	void contextLoads() {
+	void contexLoads() {
+		assertEquals(true, true);
 	}
 
 }
