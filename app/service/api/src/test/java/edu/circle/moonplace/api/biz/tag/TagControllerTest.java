@@ -1,7 +1,5 @@
 package edu.circle.moonplace.api.biz.tag;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.Test;
