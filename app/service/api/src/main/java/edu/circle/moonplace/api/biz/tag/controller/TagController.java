@@ -19,7 +19,7 @@ import edu.circle.moonplace.api.biz.tag.entity.Tag;
 import edu.circle.moonplace.api.biz.tag.service.TagService;
 
 @RestController
-@RequestMapping("/tag")
+@RequestMapping(value = "/tags", produces = "application/json")
 public class TagController {
 
     @Autowired
