@@ -8,4 +8,10 @@ public interface TagService {
     List<Tag> retrieveTagList();
 
     Tag retrieveTag(Long tagId);
+
+    void insertTag(Tag tag);
+
+    void updateTag(Long tagId, Tag tag);
+
+    void deleteTag(Long tagId);
 }

@@ -13,7 +13,7 @@ import edu.circle.moonplace.api.biz.tag.service.TagService;
 public class TagServiceImpl implements TagService {
 
     @Autowired
-    TagRepository tagRepository;
+    private TagRepository tagRepository;
 
     @Override
     public List<Tag> retrieveTagList() {
@@ -22,7 +22,27 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Tag retrieveTag(Long tagId) {
-        return tagRepository.findById(tagId).orElse(null);
+        return tagRepository.findById(tagId).orElseThrow(() -> new IllegalArgumentException("no such data"));
+    }
+
+    @Override
+    public void insertTag(Tag tag) {
+        tagRepository.save(tag);
+    }
+
+    @Override
+    public void updateTag(Long tagId, Tag tag) {
+        if (tagRepository.existsById(tagId)) {
+            tag.setId(tagId);
+            tagRepository.save(tag);
+        }
+    }
+
+    @Override
+    public void deleteTag(Long tagId) {
+        if (tagRepository.existsById(tagId)) {
+            tagRepository.deleteById(tagId);
+        }
     }
 
 }

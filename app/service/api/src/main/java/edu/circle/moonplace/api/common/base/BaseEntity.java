@@ -3,29 +3,24 @@ package edu.circle.moonplace.api.common.base;
 import java.time.Instant;
 
 import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import lombok.Getter;
 import lombok.Setter;
 
+@MappedSuperclass
 @Getter
 @Setter
-@MappedSuperclass
-public abstract class BaseEntity {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
-    private Long id;
+@EntityListeners(AuditingEntityListener.class)
+public class BaseEntity {
 
     @CreatedDate
-    @Column(name = "createDt")
+    @Column(name = "createDt", updatable = false)
     private Instant createDt;
 
     @LastModifiedDate
