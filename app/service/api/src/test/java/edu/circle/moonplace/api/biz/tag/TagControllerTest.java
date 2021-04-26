@@ -20,60 +20,55 @@ import edu.circle.moonplace.api.biz.tag.service.TagService;
 @WebMvcTest(TagController.class)
 public class TagControllerTest {
 
-    @Autowired
-    MockMvc mockMvc;
+        @Autowired
+        MockMvc mockMvc;
 
-    @MockBean
-    TagService tagService;
+        @MockBean
+        TagService tagService;
 
-    @MockBean
-    ModelMapper modelMapper;
+        @MockBean
+        ModelMapper modelMapper;
 
-    @Autowired
-    ObjectMapper objectMapper;
+        @Autowired
+        ObjectMapper objectMapper;
 
-    @Test
-    public void getTagList() throws Exception {
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/tags")).andExpect(MockMvcResultMatchers.status().isOk())
-                .andDo(MockMvcResultHandlers.print());
-    }
+        @Test
+        public void getTagList() throws Exception {
+                this.mockMvc.perform(MockMvcRequestBuilders.get("/tags").contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk())
+                                .andDo(MockMvcResultHandlers.print());
+        }
 
-    @Test
-    public void getTag() throws Exception {
-        final TagDto tag = TagDto.builder().name("test").build();
+        @Test
+        public void getTag() throws Exception {
+                this.mockMvc.perform(MockMvcRequestBuilders.get("/tags/{tagId}", 1L)
+                                .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+                                .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
+        }
 
-        this.mockMvc.perform(MockMvcRequestBuilders.get("/tags", tag.getId()))
-                .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
-    }
+        @Test
+        public void postTag() throws Exception {
+                TagDto tag = TagDto.builder().name("camp").build();
 
-    @Test
-    public void postTag() throws Exception {
-        final String jsonTag = objectMapper.writeValueAsString(TagDto.builder().name("camp").build());
+                this.mockMvc.perform(MockMvcRequestBuilders.post("/tags").content(objectMapper.writeValueAsString(tag))
+                                .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+                                .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
+        }
 
-        this.mockMvc
-                .perform(MockMvcRequestBuilders.post("/tags").content(jsonTag).contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
-    }
+        @Test
+        public void putTag() throws Exception {
+                TagDto tag = TagDto.builder().name("camp").build();
 
-    @Test
-    public void putTag() throws Exception {
-        TagDto tag = TagDto.builder().name("camp").build();
-        String jsonTag = objectMapper.writeValueAsString(tag);
+                this.mockMvc.perform(MockMvcRequestBuilders.put("/tags/{tagId}", 1L)
+                                .content(objectMapper.writeValueAsString(tag)).contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk())
+                                .andDo(MockMvcResultHandlers.print());
+        }
 
-        this.mockMvc
-                .perform(MockMvcRequestBuilders.put("/tags", tag.getId()).content(jsonTag)
-                        .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
-    }
-
-    @Test
-    public void deleteTag() throws Exception {
-        TagDto tag = TagDto.builder().name("camp").build();
-
-        this.mockMvc
-                .perform(MockMvcRequestBuilders.delete("/tags", tag.getId()).contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
-    }
+        @Test
+        public void deleteTag() throws Exception {
+                this.mockMvc.perform(MockMvcRequestBuilders.delete("/tags/{tagId}", 1L)
+                                .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
+                                .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
+        }
 }
