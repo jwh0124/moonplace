@@ -1,4 +1,4 @@
-package edu.circle.moonplace.api.biz.tag;
+package edu.circle.moonplace.api.biz.tag.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -13,7 +13,6 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
-import edu.circle.moonplace.api.biz.tag.controller.TagController;
 import edu.circle.moonplace.api.biz.tag.dto.TagDto;
 import edu.circle.moonplace.api.biz.tag.service.TagService;
 

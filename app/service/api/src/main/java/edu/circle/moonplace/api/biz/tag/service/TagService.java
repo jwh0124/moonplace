@@ -1,13 +1,14 @@
 package edu.circle.moonplace.api.biz.tag.service;
 
 import java.util.List;
+import java.util.Optional;
 
-import edu.circle.moonplace.api.biz.tag.entity.Tag;
+import edu.circle.moonplace.api.biz.tag.domain.Tag;
 
 public interface TagService {
     List<Tag> retrieveTagList();
 
-    Tag retrieveTag(Long tagId);
+    Optional<Tag> retrieveTag(Long tagId);
 
     void insertTag(Tag tag);
 

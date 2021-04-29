@@ -1,11 +1,12 @@
 package edu.circle.moonplace.api.biz.tag.service.impl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import edu.circle.moonplace.api.biz.tag.entity.Tag;
+import edu.circle.moonplace.api.biz.tag.domain.Tag;
 import edu.circle.moonplace.api.biz.tag.repository.TagRepository;
 import edu.circle.moonplace.api.biz.tag.service.TagService;
 
@@ -21,8 +22,8 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Tag retrieveTag(Long tagId) {
-        return tagRepository.findById(tagId).orElseThrow(() -> new IllegalArgumentException("no such data"));
+    public Optional<Tag> retrieveTag(Long tagId) {
+        return tagRepository.findById(tagId);
     }
 
     @Override

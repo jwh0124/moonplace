@@ -1,4 +1,4 @@
-package edu.circle.moonplace.api.biz.tag.entity;
+package edu.circle.moonplace.api.biz.tag.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

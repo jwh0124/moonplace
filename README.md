@@ -26,3 +26,4 @@
   - [API Specification](doc/api_specification.md)
 - Reference Doc
   - [MappedSuperClass](https://ict-nroo.tistory.com/129)
+  - [HTTP Status Code](https://developer.mozilla.org/ko/docs/Web/HTTP/Status)

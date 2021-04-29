@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import edu.circle.moonplace.api.biz.tag.domain.Tag;
 import edu.circle.moonplace.api.biz.tag.dto.TagDto;
-import edu.circle.moonplace.api.biz.tag.entity.Tag;
 import edu.circle.moonplace.api.biz.tag.service.TagService;
 
 @RestController
