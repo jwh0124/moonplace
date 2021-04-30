@@ -45,8 +45,8 @@ public class AreaController {
     }
 
     @PostMapping
-    public void postArea(@RequestBody AreaDto area) {
-        areaService.insertArea(modelMapper.map(area, Area.class));
+    public Long postArea(@RequestBody AreaDto area) {
+        return areaService.insertArea(modelMapper.map(area, Area.class));
     }
 
     @PutMapping(path = "/{areaId}")

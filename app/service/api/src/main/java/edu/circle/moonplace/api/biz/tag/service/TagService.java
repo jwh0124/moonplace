@@ -10,7 +10,7 @@ public interface TagService {
 
     Optional<Tag> retrieveTag(Long tagId);
 
-    void insertTag(Tag tag);
+    Long insertTag(Tag tag);
 
     void updateTag(Long tagId, Tag tag);
 

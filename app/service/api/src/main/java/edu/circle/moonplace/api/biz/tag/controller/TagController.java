@@ -47,8 +47,8 @@ public class TagController {
     }
 
     @PostMapping
-    public void postTag(@RequestBody TagDto tag) {
-        tagService.insertTag(modelMapper.map(tag, Tag.class));
+    public Long postTag(@RequestBody TagDto tag) {
+        return tagService.insertTag(modelMapper.map(tag, Tag.class));
     }
 
     @PutMapping(path = "/{tagId}")

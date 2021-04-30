@@ -1,4 +1,4 @@
-package edu.circle.moonplace.api.biz.tag.domain;
+package edu.circle.moonplace.api.biz.reply.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,25 +9,23 @@ import javax.persistence.Table;
 
 import edu.circle.moonplace.api.common.base.BaseEntity;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tag")
-@Getter
+@Table(name = "reply")
 @Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
-public class Tag extends BaseEntity {
+public class Reply extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "text")
+    private String text;
 }

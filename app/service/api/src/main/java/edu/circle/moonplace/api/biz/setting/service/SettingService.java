@@ -10,7 +10,7 @@ public interface SettingService {
 
     Optional<Setting> retrieveSetting(Long settingId);
 
-    void insertSetting(Setting setting);
+    Long insertSetting(Setting setting);
 
     void updateSetting(Long settingId, Setting setting);
 

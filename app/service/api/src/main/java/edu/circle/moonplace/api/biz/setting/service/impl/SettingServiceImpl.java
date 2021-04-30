@@ -27,8 +27,8 @@ public class SettingServiceImpl implements SettingService {
     }
 
     @Override
-    public void insertSetting(Setting setting) {
-        settingRepository.save(setting);
+    public Long insertSetting(Setting setting) {
+        return settingRepository.save(setting).getId();
     }
 
     @Override

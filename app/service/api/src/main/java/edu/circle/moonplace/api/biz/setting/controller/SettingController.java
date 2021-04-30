@@ -45,8 +45,8 @@ public class SettingController {
     }
 
     @PostMapping
-    public void postSetting(@RequestBody SettingDto setting) {
-        settingService.insertSetting(modelMapper.map(setting, Setting.class));
+    public Long postSetting(@RequestBody SettingDto setting) {
+        return settingService.insertSetting(modelMapper.map(setting, Setting.class));
     }
 
     @PutMapping(path = "/{settingId}")

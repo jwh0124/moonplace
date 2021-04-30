@@ -10,7 +10,7 @@ public interface AreaService {
 
     Optional<Area> retrieveArea(Long areaId);
 
-    void insertArea(Area area);
+    Long insertArea(Area area);
 
     void updateArea(Long areaId, Area area);
 

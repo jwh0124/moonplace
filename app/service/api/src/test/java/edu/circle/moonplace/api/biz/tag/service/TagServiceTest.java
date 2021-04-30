@@ -4,23 +4,26 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 
+import edu.circle.moonplace.api.biz.tag.domain.Tag;
+
+@SpringBootTest
 public class TagServiceTest {
 
-    @BeforeEach
-    public void beforeEach() {
-        // to-do
-    }
+    @Autowired
+    private TagService tagService;
 
     @AfterEach
     public void afterEach() {
         // to-do
+
     }
 
     @Test
-    public void insert() {
+    public void retrieveTagList() {
         // given
 
         // when
@@ -30,15 +33,43 @@ public class TagServiceTest {
     }
 
     @Test
-    public void duplication() {
+    public void retireveArea() {
         // given
 
         // when
 
         // then
         assertTrue(true);
-
-        // assertThrows(NullPointException.class, ()-> action)
     }
 
+    @Test
+    public void insertArea() {
+        // given
+        Tag tag = Tag.builder().name("camp").build();
+        // when
+        Long insertTagId = tagService.insertTag(tag);
+        // then
+        Tag findTag = tagService.retrieveTag(insertTagId).get();
+        Assertions.assertThat(tag.getName()).isEqualTo(findTag.getName());
+    }
+
+    @Test
+    public void updateArea() {
+        // given
+
+        // when
+
+        // then
+        assertTrue(true);
+    }
+
+    @Test
+    public void deleteArea() {
+        // given
+
+        // when
+
+        // then
+        assertTrue(true);
+    }
 }
