@@ -1,6 +1,7 @@
 package edu.circle.moonplace.api.biz.tag.controller;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -35,12 +36,14 @@ public class TagController {
     }
 
     @GetMapping(path = "/{tagId}")
-    public TagDto getTag(@PathVariable Long tagId) {
-        try {
-            return modelMapper.map(tagService.retrieveTag(tagId), TagDto.class);
-        } catch (Exception e) {
-            return null;
+    public TagDto getTag(@PathVariable Long tagId) throws Exception {
+
+        Optional<Tag> tag = tagService.retrieveTag(tagId);
+        if (!tag.isPresent()) {
+            throw new Exception("no such data");
         }
+
+        return modelMapper.map(tag.get(), TagDto.class);
     }
 
     @PostMapping

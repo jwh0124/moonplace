@@ -1,4 +1,4 @@
-package edu.circle.moonplace.api.biz.tag.dto;
+package edu.circle.moonplace.api.biz.area.dto;
 
 import java.time.Instant;
 
@@ -8,13 +8,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class TagDto {
-
+public class AreaDto {
     private Long id;
 
     private String name;

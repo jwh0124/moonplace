@@ -19,3 +19,7 @@
 - Kakao Message 서비스 (Kakao 로그인을 통한 Send Message - Kakao API)
 - 맛집 추천 서비스 (등록 된 맛집 또는 Crawling Data 기준)
 - 엑셀 다운로드 서비스
+
+## to-do list ##
+
+- table rename (config -> setting)
