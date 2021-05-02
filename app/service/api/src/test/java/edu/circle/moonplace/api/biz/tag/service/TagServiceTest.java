@@ -2,6 +2,8 @@ package edu.circle.moonplace.api.biz.tag.service;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import javax.transaction.Transactional;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import edu.circle.moonplace.api.biz.tag.domain.Tag;
 
 @SpringBootTest
+@Transactional
 public class TagServiceTest {
 
     @Autowired
@@ -25,7 +28,7 @@ public class TagServiceTest {
     @Test
     public void retrieveTagList() {
         // given
-
+        
         // when
 
         // then
