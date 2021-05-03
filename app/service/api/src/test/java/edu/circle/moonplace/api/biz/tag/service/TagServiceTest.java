@@ -1,78 +1,99 @@
 package edu.circle.moonplace.api.biz.tag.service;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import java.util.List;
+import java.util.Optional;
 
 import javax.transaction.Transactional;
 
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
 
 import edu.circle.moonplace.api.biz.tag.domain.Tag;
+import edu.circle.moonplace.api.biz.tag.repository.TagRepository;
 
-@SpringBootTest
+@SpringBootTest(webEnvironment = WebEnvironment.MOCK)
 @Transactional
 public class TagServiceTest {
 
     @Autowired
     private TagService tagService;
 
+    @Autowired
+    private TagRepository tagRepository;
+
+    private Tag saveTag;
+
+    @BeforeEach
+    public void beforeEach() {
+        saveTag = tagRepository.save(Tag.builder().name("camp").build());
+    }
+
     @AfterEach
     public void afterEach() {
-        // to-do
-
+        tagRepository.deleteAll();
     }
 
     @Test
     public void retrieveTagList() {
-        // given
-        
+        // given - beforeEach
+
         // when
+        List<Tag> tagList = tagService.retrieveTagList();
 
         // then
-        assertTrue(true);
+        Assertions.assertThat(tagList.size()).isEqualTo(1);
     }
 
     @Test
     public void retireveArea() {
-        // given
+        // given - beforeEach
 
         // when
+        Optional<Tag> tag = tagService.retrieveTag(saveTag.getId());
 
         // then
-        assertTrue(true);
+        Assertions.assertThat(tag).isNotNull();
     }
 
     @Test
     public void insertArea() {
         // given
         Tag tag = Tag.builder().name("camp").build();
+
         // when
         Long insertTagId = tagService.insertTag(tag);
+
         // then
-        Tag findTag = tagService.retrieveTag(insertTagId).get();
+        Tag findTag = tagRepository.findById(insertTagId).get();
         Assertions.assertThat(tag.getName()).isEqualTo(findTag.getName());
     }
 
     @Test
     public void updateArea() {
         // given
+        Tag tag = Tag.builder().name("eat").build();
 
         // when
+        tagService.updateTag(saveTag.getId(), tag);
+        Tag updateTag = tagRepository.findById(saveTag.getId()).get();
 
         // then
-        assertTrue(true);
+        Assertions.assertThat(updateTag.getName()).isEqualTo(tag.getName());
     }
 
     @Test
     public void deleteArea() {
-        // given
+        // given - beforeEach
 
         // when
+        tagService.deleteTag(saveTag.getId());
 
         // then
-        assertTrue(true);
+        Assertions.assertThat(tagRepository.count()).isZero();
     }
 }
