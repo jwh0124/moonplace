@@ -10,4 +10,24 @@ public class SettingControllerTest {
     public void getSettingList() {
         assertTrue(true);
     }
+
+    @Test
+    public void getSetting() {
+        assertTrue(true);
+    }
+
+    @Test
+    public void postSetting() {
+        assertTrue(true);
+    }
+
+    @Test
+    public void putSetting() {
+        assertTrue(true);
+    }
+
+    @Test
+    public void deleteSetting() {
+        assertTrue(true);
+    }
 }

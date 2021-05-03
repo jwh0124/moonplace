@@ -10,4 +10,24 @@ public class SettingServiceTest {
     public void retrieveSettingList() {
         assertTrue(true);
     }
+
+    @Test
+    public void retrieveSetting() {
+        assertTrue(true);
+    }
+
+    @Test
+    public void insertSetting() {
+        assertTrue(true);
+    }
+
+    @Test
+    public void updateSetting() {
+        assertTrue(true);
+    }
+
+    @Test
+    public void deleteSetting() {
+        assertTrue(true);
+    }
 }

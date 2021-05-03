@@ -10,4 +10,24 @@ public class AreaServiceTest {
     public void retrieveAreaTest() {
         assertTrue(true);
     }
+
+    @Test
+    public void retrieveArea() {
+        assertTrue(true);
+    }
+
+    @Test
+    public void insertArea() {
+        assertTrue(true);
+    }
+
+    @Test
+    public void updateArea() {
+        assertTrue(true);
+    }
+
+    @Test
+    public void deleteArea() {
+        assertTrue(true);
+    }
 }

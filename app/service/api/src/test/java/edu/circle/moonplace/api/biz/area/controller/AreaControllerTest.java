@@ -10,4 +10,24 @@ public class AreaControllerTest {
     public void getAreaList() {
         assertTrue(true);
     }
+
+    @Test
+    public void getArea() {
+        assertTrue(true);
+    }
+
+    @Test
+    public void postArea() {
+        assertTrue(true);
+    }
+
+    @Test
+    public void putArea() {
+        assertTrue(true);
+    }
+
+    @Test
+    public void deleteArea() {
+        assertTrue(true);
+    }
 }

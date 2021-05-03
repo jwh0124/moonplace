@@ -14,7 +14,7 @@ import edu.circle.moonplace.api.biz.place.service.PlaceService;
 public class PlaceServiceImpl implements PlaceService {
 
     @Autowired
-    PlaceRepository placeRepository;
+    private PlaceRepository placeRepository;
 
     @Override
     public List<Place> retrievePlaceList() {
@@ -33,7 +33,7 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public void updatePlace(Long placeId, Place place) {
-        if(placeRepository.existsById(placeId)){
+        if (placeRepository.existsById(placeId)) {
             place.setId(placeId);
             placeRepository.save(place);
         }
@@ -43,5 +43,5 @@ public class PlaceServiceImpl implements PlaceService {
     public void deletePlace(Long placeId) {
         placeRepository.deleteById(placeId);
     }
-    
+
 }

@@ -23,12 +23,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Place extends BaseEntity{
-    
+public class Place extends BaseEntity {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
-    private Long id;    
+    private Long id;
 
     @Column(name = "name")
     private String name;
@@ -42,8 +42,8 @@ public class Place extends BaseEntity{
     @Column(name = "rate")
     private Integer rate;
 
-    @Column(name = "desc")
-    private String desc;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "visitDt")
     private Instant visitDt;
