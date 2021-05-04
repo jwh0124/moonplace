@@ -13,11 +13,11 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import lombok.Getter;
 import lombok.Setter;
 
-@MappedSuperclass
 @Getter
 @Setter
+@MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
-public class BaseEntity {
+public abstract class BaseEntity {
 
     @CreatedDate
     @Column(name = "createDt", updatable = false)
