@@ -69,8 +69,9 @@ public class TagServiceTest {
         Long insertTagId = tagService.insertTag(tag);
 
         // then
-        Tag findTag = tagRepository.findById(insertTagId).get();
-        Assertions.assertThat(tag.getName()).isEqualTo(findTag.getName());
+        Optional<Tag> findTag = tagRepository.findById(insertTagId);
+        Assertions.assertThat(findTag).isNotNull();
+        Assertions.assertThat(tag.getName()).isEqualTo(findTag.get().getName());
     }
 
     @Test
@@ -80,10 +81,11 @@ public class TagServiceTest {
 
         // when
         tagService.updateTag(saveTag.getId(), tag);
-        Tag updateTag = tagRepository.findById(saveTag.getId()).get();
+        Optional<Tag> updateTag = tagRepository.findById(saveTag.getId());
 
         // then
-        Assertions.assertThat(updateTag.getName()).isEqualTo(tag.getName());
+        Assertions.assertThat(updateTag).isNotNull();
+        Assertions.assertThat(updateTag.get().getName()).isEqualTo(tag.getName());
     }
 
     @Test

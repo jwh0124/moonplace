@@ -70,10 +70,11 @@ public class PlaceServiceTest {
 
         // when
         Long insertPlaceId = placeService.insertPlace(place);
-        Place findPlace = placeRepository.findById(insertPlaceId).get();
+        Optional<Place> findPlace = placeRepository.findById(insertPlaceId);
 
         // then
-        Assertions.assertThat(place.getId()).isEqualTo(findPlace.getId());
+        Assertions.assertThat(findPlace).isNotNull();
+        Assertions.assertThat(findPlace.get().getId()).isEqualTo(place.getId());
     }
 
     @Test
@@ -84,10 +85,11 @@ public class PlaceServiceTest {
 
         // when
         placeService.updatePlace(savePlace.getId(), place);
-        Place updatePlace = placeRepository.findById(savePlace.getId()).get();
+        Optional<Place> updatePlace = placeRepository.findById(savePlace.getId());
 
         // then
-        Assertions.assertThat(updatePlace.getName()).isEqualTo(place.getName());
+        Assertions.assertThat(updatePlace).isNotNull();
+        Assertions.assertThat(updatePlace.get().getName()).isEqualTo(place.getName());
     }
 
     @Test

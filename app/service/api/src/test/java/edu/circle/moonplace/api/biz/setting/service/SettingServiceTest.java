@@ -67,11 +67,12 @@ public class SettingServiceTest {
 
         // when
         Long insertSettingId = settingService.insertSetting(setting);
-        Setting findSetting = settingRepository.findById(insertSettingId).get();
+        Optional<Setting> findSetting = settingRepository.findById(insertSettingId);
 
         // then
-        Assertions.assertThat(setting.getCode()).isEqualTo(findSetting.getCode());
-        Assertions.assertThat(setting.getValue()).isEqualTo(findSetting.getValue());
+        Assertions.assertThat(findSetting).isNotNull();
+        Assertions.assertThat(findSetting.get().getCode()).isEqualTo(setting.getCode());
+        Assertions.assertThat(findSetting.get().getValue()).isEqualTo(setting.getValue());
     }
 
     @Test
@@ -80,11 +81,12 @@ public class SettingServiceTest {
         Setting setting = Setting.builder().code("code").value("value").build();
         // when
         settingService.updateSetting(saveSetting.getId(), setting);
-        Setting updateSetting = settingRepository.findById(saveSetting.getId()).get();
+        Optional<Setting> updateSetting = settingRepository.findById(saveSetting.getId());
 
         // then
-        Assertions.assertThat(updateSetting.getCode()).isEqualTo(setting.getCode());
-        Assertions.assertThat(updateSetting.getValue()).isEqualTo(setting.getValue());
+        Assertions.assertThat(updateSetting).isNotNull();
+        Assertions.assertThat(updateSetting.get().getCode()).isEqualTo(setting.getCode());
+        Assertions.assertThat(updateSetting.get().getValue()).isEqualTo(setting.getValue());
     }
 
     @Test

@@ -67,10 +67,11 @@ public class AreaServiceTest {
 
         // when
         Long insertAreaId = areaService.insertArea(area);
-        Area findArea = areaRepository.findById(insertAreaId).get();
+        Optional<Area> findArea = areaRepository.findById(insertAreaId);
 
         // then
-        Assertions.assertThat(findArea.getId()).isEqualTo(area.getId());
+        Assertions.assertThat(findArea).isNotNull();
+        Assertions.assertThat(findArea.get().getId()).isEqualTo(area.getId());
     }
 
     @Test
@@ -80,10 +81,11 @@ public class AreaServiceTest {
 
         // when
         areaService.updateArea(saveArea.getId(), area);
-        Area findArea = areaRepository.findById(saveArea.getId()).get();
+        Optional<Area> findArea = areaRepository.findById(saveArea.getId());
 
         // then
-        Assertions.assertThat(findArea.getName()).isEqualTo(area.getName());
+        Assertions.assertThat(findArea).isNotNull();
+        Assertions.assertThat(findArea.get().getName()).isEqualTo(area.getName());
     }
 
     @Test
