@@ -3,8 +3,6 @@ package edu.circle.moonplace.api.biz.setting.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,12 +10,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.context.ActiveProfiles;
 
 import edu.circle.moonplace.api.biz.setting.domain.Setting;
 import edu.circle.moonplace.api.biz.setting.repository.SettingRepository;
 
+@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
-@Transactional
 public class SettingServiceTest {
 
     @Autowired

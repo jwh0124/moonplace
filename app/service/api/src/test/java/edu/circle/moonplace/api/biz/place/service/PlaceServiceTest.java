@@ -4,8 +4,6 @@ import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
-import javax.transaction.Transactional;
-
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -13,12 +11,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.context.ActiveProfiles;
 
 import edu.circle.moonplace.api.biz.place.domain.Place;
 import edu.circle.moonplace.api.biz.place.repository.PlaceRepository;
 
 @SpringBootTest(webEnvironment = WebEnvironment.MOCK)
-@Transactional
+@ActiveProfiles("test")
 public class PlaceServiceTest {
 
     @Autowired
