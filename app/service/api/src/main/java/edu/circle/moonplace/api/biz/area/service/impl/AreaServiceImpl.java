@@ -28,7 +28,8 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public Long insertArea(Area area) {
-        return areaRepository.save(area).getId();
+        areaRepository.save(area);
+        return area.getId();
     }
 
     @Override

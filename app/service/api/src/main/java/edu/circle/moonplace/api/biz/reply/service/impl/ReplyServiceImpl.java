@@ -28,7 +28,8 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public Long insertReply(Reply reply) {
-        return replyRepository.save(reply).getId();
+        replyRepository.save(reply);
+        return reply.getId();
     }
 
     @Override

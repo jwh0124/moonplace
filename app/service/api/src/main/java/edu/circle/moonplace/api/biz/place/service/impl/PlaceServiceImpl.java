@@ -28,7 +28,8 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public Long insertPlace(Place place) {
-        return placeRepository.save(place).getId();
+        placeRepository.save(place);
+        return place.getId();
     }
 
     @Override

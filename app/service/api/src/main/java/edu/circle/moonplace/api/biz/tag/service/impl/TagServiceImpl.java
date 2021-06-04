@@ -28,8 +28,8 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public Long insertTag(Tag tag) {
-        Tag saveTag = tagRepository.save(tag);
-        return saveTag.getId();
+        tagRepository.save(tag);
+        return tag.getId();
     }
 
     @Override
