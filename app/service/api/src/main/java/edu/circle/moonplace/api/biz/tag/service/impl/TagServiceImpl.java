@@ -1,7 +1,7 @@
 package edu.circle.moonplace.api.biz.tag.service.impl;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,16 +22,22 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Optional<Tag> retrieveTag(Long tagId) {
-        return tagRepository.findById(tagId);
+    public Tag retrieveTag(Long tagId) {
+        return tagRepository.findById(tagId)
+                .orElseThrow(() -> new NoSuchElementException("not found tagId : " + tagId));
     }
 
+    // TODO:
+    // [] add validation tag name
     @Override
     public Long insertTag(Tag tag) {
+
         tagRepository.save(tag);
         return tag.getId();
     }
 
+    // TODO:
+    // [] existsById -> findById
     @Override
     public void updateTag(Long tagId, Tag tag) {
         if (tagRepository.existsById(tagId)) {
@@ -40,6 +46,8 @@ public class TagServiceImpl implements TagService {
         }
     }
 
+    // TODO:
+    // [] existsById -> findById
     @Override
     public void deleteTag(Long tagId) {
         if (tagRepository.existsById(tagId)) {
