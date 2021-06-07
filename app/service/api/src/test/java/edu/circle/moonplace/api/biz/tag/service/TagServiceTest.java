@@ -53,7 +53,7 @@ public class TagServiceTest {
         // given - beforeEach
 
         // when
-        Optional<Tag> tag = tagService.retrieveTag(saveTag.getId());
+        Tag tag = tagService.retrieveTag(saveTag.getId());
 
         // then
         Assertions.assertThat(tag).isNotNull();
