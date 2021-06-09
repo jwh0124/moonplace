@@ -22,16 +22,16 @@ import edu.circle.moonplace.api.biz.tag.service.TagService;
 public class TagControllerTest {
 
         @Autowired
-        MockMvc mockMvc;
+        private MockMvc mockMvc;
 
         @MockBean
-        TagService tagService;
+        private TagService tagService;
 
         @MockBean
-        ModelMapper modelMapper;
+        private ModelMapper modelMapper;
 
         @Autowired
-        ObjectMapper objectMapper;
+        private ObjectMapper objectMapper;
 
         @Test
         public void getTagList() throws Exception {

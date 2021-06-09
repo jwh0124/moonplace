@@ -31,18 +31,17 @@ import edu.circle.moonplace.api.common.enums.StatusEnum;
 public class TagController {
 
     @Autowired
-    TagService tagService;
+    private TagService tagService;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @GetMapping
     public ResponseEntity<BaseResponse> getTagList() {
         try {
             return ResponseEntity.ok(new SuccessResponse<>(tagService.retrieveTagList().stream()
                 .map(tag -> modelMapper.map(tag, TagDto.class)).collect(Collectors.toList())));
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body(new FailureResponse(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
         }
@@ -50,12 +49,10 @@ public class TagController {
 
     @GetMapping(path = "/{tagId}")
     public ResponseEntity<BaseResponse> getTag(@PathVariable Long tagId) {
-
         try {
             return ResponseEntity
                     .ok(new SuccessResponse<>(modelMapper.map(tagService.retrieveTag(tagId), TagDto.class)));
-        }
-        catch (NoSuchElementException nsee) {
+        } catch (NoSuchElementException nsee) {
             return ResponseEntity.ok(new FailureResponse(StatusEnum.NOT_FOUND, nsee.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.status(500)
@@ -65,18 +62,33 @@ public class TagController {
 
     @PostMapping
     public ResponseEntity<BaseResponse> postTag(@RequestBody TagDto tag) {
-        return ResponseEntity.ok(new SuccessResponse<>(tagService.insertTag(modelMapper.map(tag, Tag.class))));
+        try {
+            return ResponseEntity.ok(new SuccessResponse<>(tagService.insertTag(modelMapper.map(tag, Tag.class))));
+        } catch (Exception e) {
+            return ResponseEntity.status(500)
+                    .body(new FailureResponse(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+        }
     }
 
     @PutMapping(path = "/{tagId}")
     public ResponseEntity<BaseResponse> putTag(@PathVariable Long tagId, @RequestBody TagDto tag) {
-        tagService.updateTag(tagId, modelMapper.map(tag, Tag.class));
-        return ResponseEntity.ok(new SuccessResponse<>(tagId));
+        try {
+            tagService.updateTag(tagId, modelMapper.map(tag, Tag.class));
+            return ResponseEntity.ok(new SuccessResponse<>(tagId));
+        } catch (Exception e) {
+            return ResponseEntity.status(500)
+                    .body(new FailureResponse(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+        }
     }
 
     @DeleteMapping(path = "/{tagId}")
     public ResponseEntity<BaseResponse> deleteTag(@PathVariable Long tagId) {
-        tagService.deleteTag(tagId);
-        return ResponseEntity.ok(new SuccessResponse<>(tagId));
+        try {
+            tagService.deleteTag(tagId);
+            return ResponseEntity.ok(new SuccessResponse<>(tagId));
+        } catch (Exception e) {
+            return ResponseEntity.status(500)
+                    .body(new FailureResponse(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+        }
     }
 }
