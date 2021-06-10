@@ -21,9 +21,12 @@ import edu.circle.moonplace.api.biz.reply.dto.ReplyDto;
 import edu.circle.moonplace.api.biz.reply.service.ReplyService;
 import edu.circle.moonplace.api.common.ApiResponse;
 import edu.circle.moonplace.api.common.enums.StatusEnum;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value = "/replies", produces = "application/json")
+@Api(tags = "Reply")
 public class ReplyController {
 
     @Autowired
@@ -33,6 +36,7 @@ public class ReplyController {
     private ModelMapper modelMapper;
 
     @GetMapping
+    @ApiOperation(value = "댓글 리스트 조회")
     public ResponseEntity<ApiResponse<List<ReplyDto>>> getReplyList() {
         try {
             return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, replyService.retrieveReplyList().stream()
@@ -43,6 +47,7 @@ public class ReplyController {
     }
 
     @GetMapping(path = "/{id}")
+    @ApiOperation(value = "댓글 조회")
     public ResponseEntity<ApiResponse<ReplyDto>> getReply(@PathVariable Long id) throws Exception {
         try {
             return ResponseEntity.ok(
@@ -55,6 +60,7 @@ public class ReplyController {
     }
 
     @PostMapping
+    @ApiOperation(value = "댓글 등록")
     public ResponseEntity<ApiResponse<Long>> postReply(@RequestBody ReplyDto reply) {
         try {
             return ResponseEntity.ok(
@@ -65,6 +71,7 @@ public class ReplyController {
     }
 
     @PutMapping(path = "/{id}")
+    @ApiOperation(value = "댓글 정보 수정")
     public ResponseEntity<ApiResponse<Long>> putReply(@PathVariable Long id, @RequestBody ReplyDto reply) {
         try {
             replyService.updateReply(id, modelMapper.map(reply, Reply.class));
@@ -77,6 +84,7 @@ public class ReplyController {
     }
 
     @DeleteMapping(path = "/{id}")
+    @ApiOperation(value = "댓글 삭제")
     public ResponseEntity<ApiResponse<Long>> deleteReply(@PathVariable Long id) {
         try {
             replyService.deleteReply(id);

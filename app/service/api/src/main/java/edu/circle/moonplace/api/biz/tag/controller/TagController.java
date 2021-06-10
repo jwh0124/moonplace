@@ -22,12 +22,14 @@ import edu.circle.moonplace.api.biz.tag.dto.TagDto;
 import edu.circle.moonplace.api.biz.tag.service.TagService;
 import edu.circle.moonplace.api.common.ApiResponse;
 import edu.circle.moonplace.api.common.enums.StatusEnum;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
 // TODO:
 // [] exception processing => ControllerAdvice
 @RestController
 @RequestMapping(value = "/tags", produces = "application/json")
+@Api(tags = "Tag")
 public class TagController {
 
     @Autowired
@@ -37,7 +39,7 @@ public class TagController {
     private ModelMapper modelMapper;
 
     @GetMapping
-    @ApiOperation(value = "GetTagList")
+    @ApiOperation(value = "태그 리스트 조회")
     public ResponseEntity<ApiResponse<List<TagDto>>> getTagList() {
         try {
             return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, tagService.retrieveTagList().stream()
@@ -49,6 +51,7 @@ public class TagController {
     }
 
     @GetMapping(path = "/{id}")
+    @ApiOperation(value = "태그 조회")
     public ResponseEntity<ApiResponse<TagDto>> getTag(@PathVariable Long id) {
         try {
             return ResponseEntity
@@ -62,6 +65,7 @@ public class TagController {
     }
 
     @PostMapping
+    @ApiOperation(value = "태그 등록")
     public ResponseEntity<ApiResponse<Long>> postTag(@RequestBody TagDto tag) {
         try {
             return ResponseEntity
@@ -73,6 +77,7 @@ public class TagController {
     }
 
     @PutMapping(path = "/{id}")
+    @ApiOperation(value = "태그 정보 수정")
     public ResponseEntity<ApiResponse<Long>> putTag(@PathVariable Long id, @RequestBody TagDto tag) {
         try {
             tagService.updateTag(id, modelMapper.map(tag, Tag.class));
@@ -86,6 +91,7 @@ public class TagController {
     }
 
     @DeleteMapping(path = "/{id}")
+    @ApiOperation(value = "태그 삭제")
     public ResponseEntity<ApiResponse<Long>> deleteTag(@PathVariable Long id) {
         try {
             tagService.deleteTag(id);

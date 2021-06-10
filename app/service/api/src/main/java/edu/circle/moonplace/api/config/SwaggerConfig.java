@@ -18,7 +18,8 @@ public class SwaggerConfig {
     private String basePackage = "edu.circle.moonplace.api.biz";
 
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("MoonPlace").description("API").build();
+        return new ApiInfoBuilder().title("Moon Place").description("Moon Place API Documentation")
+                .license("Apache 2.0").licenseUrl("http://www.apache.org/licenses/LICENSE-2.0").build();
     }
 
     @Bean

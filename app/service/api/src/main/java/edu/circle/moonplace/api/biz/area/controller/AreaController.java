@@ -21,9 +21,12 @@ import edu.circle.moonplace.api.biz.area.dto.AreaDto;
 import edu.circle.moonplace.api.biz.area.service.AreaService;
 import edu.circle.moonplace.api.common.ApiResponse;
 import edu.circle.moonplace.api.common.enums.StatusEnum;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value = "/areas", produces = "application/json")
+@Api(tags = "Area")
 public class AreaController {
 
     @Autowired
@@ -33,6 +36,7 @@ public class AreaController {
     private ModelMapper modelMapper;
 
     @GetMapping
+    @ApiOperation(value = "지역 리스트 조회")
     public ResponseEntity<ApiResponse<List<AreaDto>>> getAreaList() {
         try {
             return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, areaService.retrieveAreaList().stream()
@@ -43,6 +47,7 @@ public class AreaController {
     }
 
     @GetMapping(path = "/{id}")
+    @ApiOperation(value = "지역 조회")
     public ResponseEntity<ApiResponse<AreaDto>> getArea(@PathVariable Long id) throws Exception {
         try {
             return ResponseEntity
@@ -55,6 +60,7 @@ public class AreaController {
     }
 
     @PostMapping
+    @ApiOperation(value = "지역 등록")
     public ResponseEntity<ApiResponse<Long>> postArea(@RequestBody AreaDto area) {
         try {
             return ResponseEntity
@@ -65,6 +71,7 @@ public class AreaController {
     }
 
     @PutMapping(path = "/{id}")
+    @ApiOperation(value = "지역 정보 수정")
     public ResponseEntity<ApiResponse<Long>> putArea(@PathVariable Long id, @RequestBody AreaDto area) {
         try {
             areaService.updateArea(id, modelMapper.map(area, Area.class));
@@ -77,6 +84,7 @@ public class AreaController {
     }
 
     @DeleteMapping(path = "/{id}")
+    @ApiOperation(value = "지역 삭제")
     public ResponseEntity<ApiResponse<Long>> deleteArea(@PathVariable Long id) {
         try {
             areaService.deleteArea(id);

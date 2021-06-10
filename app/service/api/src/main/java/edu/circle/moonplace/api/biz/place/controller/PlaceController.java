@@ -21,9 +21,12 @@ import edu.circle.moonplace.api.biz.place.dto.PlaceDto;
 import edu.circle.moonplace.api.biz.place.service.PlaceService;
 import edu.circle.moonplace.api.common.ApiResponse;
 import edu.circle.moonplace.api.common.enums.StatusEnum;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value = "/places", produces = "application/json")
+@Api(tags = "Place")
 public class PlaceController {
 
     @Autowired
@@ -33,6 +36,7 @@ public class PlaceController {
     private ModelMapper modelMapper;
 
     @GetMapping
+    @ApiOperation(value = "장소 리스트 조회")
     public ResponseEntity<ApiResponse<List<PlaceDto>>> getPlaceList() {
         try {
             return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, placeService.retrievePlaceList().stream()
@@ -43,6 +47,7 @@ public class PlaceController {
     }
 
     @GetMapping(path = "/{id}")
+    @ApiOperation(value = "장소 조회")
     public ResponseEntity<ApiResponse<PlaceDto>> getPlace(@PathVariable Long id) throws Exception {
         try {
             return ResponseEntity.ok(
@@ -55,6 +60,7 @@ public class PlaceController {
     }
 
     @PostMapping
+    @ApiOperation(value = "장소 등록")
     public ResponseEntity<ApiResponse<Long>> postPlace(@RequestBody PlaceDto place) {
         try {
             return ResponseEntity.ok(
@@ -65,6 +71,7 @@ public class PlaceController {
     }
 
     @PutMapping(path = "/{id}")
+    @ApiOperation(value = "장소 정보 수정")
     public ResponseEntity<ApiResponse<Long>> putPlace(@PathVariable Long id, @RequestBody PlaceDto place) {
         try {
             placeService.updatePlace(id, modelMapper.map(place, Place.class));
@@ -77,6 +84,7 @@ public class PlaceController {
     }
 
     @DeleteMapping(path = "/{id}")
+    @ApiOperation(value = "장소 삭제")
     public ResponseEntity<ApiResponse<Long>> deletePlace(@PathVariable Long id) {
         try {
             placeService.deletePlace(id);

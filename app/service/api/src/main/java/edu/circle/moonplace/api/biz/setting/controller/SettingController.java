@@ -21,9 +21,12 @@ import edu.circle.moonplace.api.biz.setting.dto.SettingDto;
 import edu.circle.moonplace.api.biz.setting.service.SettingService;
 import edu.circle.moonplace.api.common.ApiResponse;
 import edu.circle.moonplace.api.common.enums.StatusEnum;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 
 @RestController
 @RequestMapping(value = "/settings", produces = "application/json")
+@Api(tags = "Setting")
 public class SettingController {
 
     @Autowired
@@ -33,6 +36,7 @@ public class SettingController {
     private ModelMapper modelMapper;
 
     @GetMapping
+    @ApiOperation(value = "설정 리스트 조회")
     public ResponseEntity<ApiResponse<List<SettingDto>>> getSettingList() {
         try {
             return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, settingService.retrieveSettingList().stream()
@@ -43,6 +47,7 @@ public class SettingController {
     }
 
     @GetMapping(path = "/{id}")
+    @ApiOperation(value = "설정 조회")
     public ResponseEntity<ApiResponse<SettingDto>> getSetting(@PathVariable Long id) throws Exception {
         try {
             return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK,
@@ -55,6 +60,7 @@ public class SettingController {
     }
 
     @PostMapping
+    @ApiOperation(value = "설정 등록")
     public ResponseEntity<ApiResponse<Long>> postSetting(@RequestBody SettingDto setting) {
         try {
             return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK,
@@ -67,6 +73,7 @@ public class SettingController {
     }
 
     @PutMapping(path = "/{id}")
+    @ApiOperation(value = "설정 정보 수정")
     public ResponseEntity<ApiResponse<Long>> putSetting(@PathVariable Long id, @RequestBody SettingDto setting) {
         try {
             settingService.updateSetting(id, modelMapper.map(setting, Setting.class));
@@ -79,6 +86,7 @@ public class SettingController {
     }
 
     @DeleteMapping(path = "/{id}")
+    @ApiOperation(value = "설정 삭제")
     public ResponseEntity<ApiResponse<Long>> deleteSetting(@PathVariable Long id) {
         try {
             settingService.deleteSetting(id);
