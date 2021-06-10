@@ -1,6 +1,6 @@
 package edu.circle.moonplace.api.biz.setting.dto;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +20,7 @@ public class SettingDto {
 
     private String value;
 
-    private Instant createDt;
+    private LocalDateTime createDt;
 
-    private Instant updateDt;
+    private LocalDateTime updateDt;
 }

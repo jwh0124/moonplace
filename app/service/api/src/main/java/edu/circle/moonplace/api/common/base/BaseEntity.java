@@ -1,6 +1,6 @@
 package edu.circle.moonplace.api.common.base;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
@@ -21,9 +21,9 @@ public abstract class BaseEntity {
 
     @CreatedDate
     @Column(name = "createDt", updatable = false)
-    private Instant createDt;
+    private LocalDateTime createDt;
 
     @LastModifiedDate
     @Column(name = "updateDt")
-    private Instant updateDt;
+    private LocalDateTime updateDt;
 }

@@ -42,8 +42,7 @@ public class TagControllerTest {
 
         @Test
         public void getTag() throws Exception {
-
-                this.mockMvc.perform(MockMvcRequestBuilders.get("/tags/{tagId}", 1L)
+                this.mockMvc.perform(MockMvcRequestBuilders.get("/tags/{id}", 1L)
                                 .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                                 .andExpect(MockMvcResultMatchers.status().isOk())
                                 .andDo(MockMvcResultHandlers.print());
@@ -62,7 +61,7 @@ public class TagControllerTest {
         public void putTag() throws Exception {
                 TagDto tag = TagDto.builder().name("camp").build();
 
-                this.mockMvc.perform(MockMvcRequestBuilders.put("/tags/{tagId}", 1L)
+                this.mockMvc.perform(MockMvcRequestBuilders.put("/tags/{id}", 1L)
                                 .content(objectMapper.writeValueAsString(tag)).contentType(MediaType.APPLICATION_JSON)
                                 .accept(MediaType.APPLICATION_JSON)).andExpect(MockMvcResultMatchers.status().isOk())
                                 .andDo(MockMvcResultHandlers.print());
@@ -70,7 +69,7 @@ public class TagControllerTest {
 
         @Test
         public void deleteTag() throws Exception {
-                this.mockMvc.perform(MockMvcRequestBuilders.delete("/tags/{tagId}", 1L)
+                this.mockMvc.perform(MockMvcRequestBuilders.delete("/tags/{id}", 1L)
                                 .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
                                 .andExpect(MockMvcResultMatchers.status().isOk()).andDo(MockMvcResultHandlers.print());
         }

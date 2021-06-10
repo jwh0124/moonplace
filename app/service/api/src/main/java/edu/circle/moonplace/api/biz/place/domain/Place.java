@@ -1,6 +1,6 @@
 package edu.circle.moonplace.api.biz.place.domain;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -46,5 +46,5 @@ public class Place extends BaseEntity {
     private String description;
 
     @Column(name = "visitDt")
-    private Instant visitDt;
+    private LocalDateTime visitDt;
 }

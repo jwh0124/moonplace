@@ -1,6 +1,6 @@
 package edu.circle.moonplace.api.biz.reply.dto;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +19,7 @@ public class ReplyDto {
 
     private String text;
 
-    private Instant createDt;
+    private LocalDateTime createDt;
 
-    private Instant updateDt;
+    private LocalDateTime updateDt;
 }

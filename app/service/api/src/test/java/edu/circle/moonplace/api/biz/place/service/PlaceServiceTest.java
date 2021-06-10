@@ -1,6 +1,6 @@
 package edu.circle.moonplace.api.biz.place.service;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,7 +31,7 @@ public class PlaceServiceTest {
     @BeforeEach
     public void beforeEach() {
         savePlace = placeRepository.save(Place.builder().name("name").addr("addr").phone("phone").rate(5)
-                .description("description").visitDt(Instant.now()).build());
+                .description("description").visitDt(LocalDateTime.now()).build());
     }
 
     @AfterEach
@@ -65,7 +65,7 @@ public class PlaceServiceTest {
     public void insertPlace() {
         // given
         Place place = Place.builder().name("name").addr("addr").phone("phone").rate(5).description("description")
-                .visitDt(Instant.now()).build();
+                .visitDt(LocalDateTime.now()).build();
 
         // when
         Long insertPlaceId = placeService.insertPlace(place);
@@ -80,7 +80,7 @@ public class PlaceServiceTest {
     public void updatePlace() {
         // given - beforeEach
         Place place = Place.builder().name("name").addr("addr").phone("phone").rate(5).description("description")
-                .visitDt(Instant.now()).build();
+                .visitDt(LocalDateTime.now()).build();
 
         // when
         placeService.updatePlace(savePlace.getId(), place);

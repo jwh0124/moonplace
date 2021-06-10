@@ -1,6 +1,6 @@
 package edu.circle.moonplace.api.biz.tag.dto;
 
-import java.time.Instant;
+import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,7 +19,7 @@ public class TagDto {
 
     private String name;
 
-    private Instant createDt;
+    private LocalDateTime createDt;
 
-    private Instant updateDt;
+    private LocalDateTime updateDt;
 }
