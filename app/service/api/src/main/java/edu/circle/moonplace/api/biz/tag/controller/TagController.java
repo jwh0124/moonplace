@@ -1,5 +1,6 @@
 package edu.circle.moonplace.api.biz.tag.controller;
 
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
@@ -19,10 +20,9 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.circle.moonplace.api.biz.tag.domain.Tag;
 import edu.circle.moonplace.api.biz.tag.dto.TagDto;
 import edu.circle.moonplace.api.biz.tag.service.TagService;
-import edu.circle.moonplace.api.common.base.BaseResponse;
-import edu.circle.moonplace.api.common.base.response.FailureResponse;
-import edu.circle.moonplace.api.common.base.response.SuccessResponse;
+import edu.circle.moonplace.api.common.ApiResponse;
 import edu.circle.moonplace.api.common.enums.StatusEnum;
+import io.swagger.annotations.ApiOperation;
 
 // TODO:
 // [] exception processing => ControllerAdvice
@@ -37,58 +37,60 @@ public class TagController {
     private ModelMapper modelMapper;
 
     @GetMapping
-    public ResponseEntity<BaseResponse> getTagList() {
+    @ApiOperation(value = "GetTagList")
+    public ResponseEntity<ApiResponse<List<TagDto>>> getTagList() {
         try {
-            return ResponseEntity.ok(new SuccessResponse<>(tagService.retrieveTagList().stream()
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, tagService.retrieveTagList().stream()
                 .map(tag -> modelMapper.map(tag, TagDto.class)).collect(Collectors.toList())));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body(new FailureResponse(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+                    .body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
         }
     }
 
     @GetMapping(path = "/{id}")
-    public ResponseEntity<BaseResponse> getTag(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<TagDto>> getTag(@PathVariable Long id) {
         try {
             return ResponseEntity
-                    .ok(new SuccessResponse<>(modelMapper.map(tagService.retrieveTag(id), TagDto.class)));
+                    .ok(new ApiResponse<>(modelMapper.map(tagService.retrieveTag(id), TagDto.class)));
         } catch (NoSuchElementException nsee) {
-            return ResponseEntity.ok(new FailureResponse(StatusEnum.NOT_FOUND, nsee.getMessage()));
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.NOT_FOUND, nsee.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.status(500)
-                    .body(new FailureResponse(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+                    .body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
         }
     }
 
     @PostMapping
-    public ResponseEntity<BaseResponse> postTag(@RequestBody TagDto tag) {
+    public ResponseEntity<ApiResponse<Long>> postTag(@RequestBody TagDto tag) {
         try {
-            return ResponseEntity.ok(new SuccessResponse<>(tagService.insertTag(modelMapper.map(tag, Tag.class))));
+            return ResponseEntity
+                    .ok(new ApiResponse<>(StatusEnum.OK, tagService.insertTag(modelMapper.map(tag, Tag.class))));
         } catch (Exception e) {
             return ResponseEntity.status(500)
-                    .body(new FailureResponse(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+                    .body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
         }
     }
 
     @PutMapping(path = "/{id}")
-    public ResponseEntity<BaseResponse> putTag(@PathVariable Long id, @RequestBody TagDto tag) {
+    public ResponseEntity<ApiResponse<Long>> putTag(@PathVariable Long id, @RequestBody TagDto tag) {
         try {
             tagService.updateTag(id, modelMapper.map(tag, Tag.class));
-            return ResponseEntity.ok(new SuccessResponse<>(id));
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, id));
         } catch (Exception e) {
             return ResponseEntity.status(500)
-                    .body(new FailureResponse(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+                    .body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
         }
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<BaseResponse> deleteTag(@PathVariable Long id) {
+    public ResponseEntity<ApiResponse<Long>> deleteTag(@PathVariable Long id) {
         try {
             tagService.deleteTag(id);
-            return ResponseEntity.ok(new SuccessResponse<>(id));
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, id));
         } catch (Exception e) {
             return ResponseEntity.status(500)
-                    .body(new FailureResponse(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+                    .body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
         }
     }
 }
