@@ -53,7 +53,7 @@ public class AreaServiceTest {
         // given - beforeEach
 
         // when
-        Optional<Area> area = areaService.retrieveArea(saveArea.getId());
+        Area area = areaService.retrieveArea(saveArea.getId());
 
         // then
         Assertions.assertThat(area).isNotNull();

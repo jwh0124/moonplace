@@ -1,7 +1,7 @@
 package edu.circle.moonplace.api.biz.area.service.impl;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +22,8 @@ public class AreaServiceImpl implements AreaService {
     }
 
     @Override
-    public Optional<Area> retrieveArea(Long id) {
-        return areaRepository.findById(id);
+    public Area retrieveArea(Long id) {
+        return areaRepository.findById(id).orElseThrow(() -> new NoSuchElementException("not found areaId : " + id));
     }
 
     @Override
@@ -34,15 +34,20 @@ public class AreaServiceImpl implements AreaService {
 
     @Override
     public void updateArea(Long id, Area area) {
-        if (areaRepository.existsById(id)) {
+        areaRepository.findById(id).ifPresentOrElse(getArea -> {
             area.setId(id);
             areaRepository.save(area);
-        }
+        }, () -> {
+            throw new NoSuchElementException("not found areaId : " + id);
+        });
     }
 
     @Override
     public void deleteArea(Long id) {
-        areaRepository.deleteById(id);
+        areaRepository.findById(id).ifPresentOrElse(getArea -> areaRepository.deleteById(id), () -> {
+            throw new NoSuchElementException("not found areaId : " + id);
+        });
+
     }
 
 }

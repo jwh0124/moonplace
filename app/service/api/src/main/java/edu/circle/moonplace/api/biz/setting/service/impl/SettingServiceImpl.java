@@ -1,7 +1,7 @@
 package edu.circle.moonplace.api.biz.setting.service.impl;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +22,9 @@ public class SettingServiceImpl implements SettingService {
     }
 
     @Override
-    public Optional<Setting> retrieveSetting(Long id) {
-        return settingRepository.findById(id);
+    public Setting retrieveSetting(Long id) {
+        return settingRepository.findById(id)
+                .orElseThrow(() -> new NoSuchElementException("not found settingId : " + id));
     }
 
     @Override
@@ -34,17 +35,20 @@ public class SettingServiceImpl implements SettingService {
 
     @Override
     public void updateSetting(Long id, Setting setting) {
-        if (settingRepository.existsById(id)) {
+        settingRepository.findById(id).ifPresentOrElse(getSetting -> {
             setting.setId(id);
             settingRepository.save(setting);
-        }
+        }, () -> {
+            throw new NoSuchElementException("not found settingId : " + id);
+        });
     }
 
     @Override
     public void deleteSetting(Long id) {
-        if (settingRepository.existsById(id)) {
-            settingRepository.deleteById(id);
-        }
+        settingRepository.findById(id).ifPresentOrElse(getSetting -> settingRepository.deleteById(id), () -> {
+            throw new NoSuchElementException("not found settingId : " + id);
+        });
+
     }
 
 }

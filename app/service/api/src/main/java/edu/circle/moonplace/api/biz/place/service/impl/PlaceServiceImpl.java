@@ -1,7 +1,7 @@
 package edu.circle.moonplace.api.biz.place.service.impl;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +22,8 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public Optional<Place> retrievePlace(Long id) {
-        return placeRepository.findById(id);
+    public Place retrievePlace(Long id) {
+        return placeRepository.findById(id).orElseThrow(() -> new NoSuchElementException("not found placeId : " + id));
     }
 
     @Override
@@ -34,15 +34,18 @@ public class PlaceServiceImpl implements PlaceService {
 
     @Override
     public void updatePlace(Long id, Place place) {
-        if (placeRepository.existsById(id)) {
+        placeRepository.findById(id).ifPresentOrElse(getPlace -> {
             place.setId(id);
             placeRepository.save(place);
-        }
+        }, () -> {
+            throw new NoSuchElementException("not found placeId :" + id);
+        });
     }
 
     @Override
     public void deletePlace(Long id) {
-        placeRepository.deleteById(id);
+        placeRepository.findById(id).ifPresentOrElse(getPlace -> placeRepository.deleteById(id), () -> {
+            throw new NoSuchElementException("not found placeId :" + id);
+        });
     }
-
 }

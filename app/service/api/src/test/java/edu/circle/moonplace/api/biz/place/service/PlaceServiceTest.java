@@ -55,7 +55,7 @@ public class PlaceServiceTest {
         // given - beforeEach
 
         // when
-        Optional<Place> place = placeService.retrievePlace(savePlace.getId());
+        Place place = placeService.retrievePlace(savePlace.getId());
 
         // then
         Assertions.assertThat(place).isNotNull();

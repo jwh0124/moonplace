@@ -1,11 +1,12 @@
 package edu.circle.moonplace.api.biz.reply.controller;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.circle.moonplace.api.biz.reply.domain.Reply;
 import edu.circle.moonplace.api.biz.reply.dto.ReplyDto;
 import edu.circle.moonplace.api.biz.reply.service.ReplyService;
+import edu.circle.moonplace.api.common.ApiResponse;
+import edu.circle.moonplace.api.common.enums.StatusEnum;
 
 @RestController
 @RequestMapping(value = "/replies", produces = "application/json")
@@ -30,33 +33,59 @@ public class ReplyController {
     private ModelMapper modelMapper;
 
     @GetMapping
-    public List<ReplyDto> getReplyList() {
-        return replyService.retrieveReplyList().stream().map(reply -> modelMapper.map(reply, ReplyDto.class))
-                .collect(Collectors.toList());
+    public ResponseEntity<ApiResponse<List<ReplyDto>>> getReplyList() {
+        try {
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, replyService.retrieveReplyList().stream()
+                    .map(reply -> modelMapper.map(reply, ReplyDto.class)).collect(Collectors.toList())));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+        }
     }
 
     @GetMapping(path = "/{id}")
-    public ReplyDto getReply(@PathVariable Long id) throws Exception {
-        Optional<Reply> reply = replyService.retrieveReply(id);
-        if (!reply.isPresent()) {
-            throw new Exception("No such data");
+    public ResponseEntity<ApiResponse<ReplyDto>> getReply(@PathVariable Long id) throws Exception {
+        try {
+            return ResponseEntity.ok(
+                    new ApiResponse<>(StatusEnum.OK, modelMapper.map(replyService.retrieveReply(id), ReplyDto.class)));
+        } catch (NoSuchElementException nsee) {
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.NOT_FOUND, nsee.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
         }
-        return modelMapper.map(reply.get(), ReplyDto.class);
     }
 
     @PostMapping
-    public Long postReply(@RequestBody ReplyDto reply) {
-        return replyService.insertReply(modelMapper.map(reply, Reply.class));
+    public ResponseEntity<ApiResponse<Long>> postReply(@RequestBody ReplyDto reply) {
+        try {
+            return ResponseEntity.ok(
+                    new ApiResponse<>(StatusEnum.OK, replyService.insertReply(modelMapper.map(reply, Reply.class))));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+        }
     }
 
     @PutMapping(path = "/{id}")
-    public void putReply(@PathVariable Long id, @RequestBody ReplyDto reply) {
-        replyService.updateReply(id, modelMapper.map(reply, Reply.class));
+    public ResponseEntity<ApiResponse<Long>> putReply(@PathVariable Long id, @RequestBody ReplyDto reply) {
+        try {
+            replyService.updateReply(id, modelMapper.map(reply, Reply.class));
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, id));
+        } catch (NoSuchElementException nsee) {
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.NOT_FOUND, nsee.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+        }
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deleteReply(@PathVariable Long id) {
-        replyService.deleteReply(id);
+    public ResponseEntity<ApiResponse<Long>> deleteReply(@PathVariable Long id) {
+        try {
+            replyService.deleteReply(id);
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, id));
+        } catch (NoSuchElementException nsee) {
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.NOT_FOUND, nsee.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+        }
     }
 
 }

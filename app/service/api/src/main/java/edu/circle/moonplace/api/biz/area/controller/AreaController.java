@@ -1,11 +1,12 @@
 package edu.circle.moonplace.api.biz.area.controller;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,44 +19,72 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.circle.moonplace.api.biz.area.domain.Area;
 import edu.circle.moonplace.api.biz.area.dto.AreaDto;
 import edu.circle.moonplace.api.biz.area.service.AreaService;
+import edu.circle.moonplace.api.common.ApiResponse;
+import edu.circle.moonplace.api.common.enums.StatusEnum;
 
 @RestController
 @RequestMapping(value = "/areas", produces = "application/json")
 public class AreaController {
 
     @Autowired
-    AreaService areaService;
+    private AreaService areaService;
 
     @Autowired
-    ModelMapper modelMapper;
+    private ModelMapper modelMapper;
 
     @GetMapping
-    public List<AreaDto> getAreaList() {
-        return areaService.retrieveAreaList().stream().map(area -> modelMapper.map(area, AreaDto.class))
-                .collect(Collectors.toList());
+    public ResponseEntity<ApiResponse<List<AreaDto>>> getAreaList() {
+        try {
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, areaService.retrieveAreaList().stream()
+                    .map(area -> modelMapper.map(area, AreaDto.class)).collect(Collectors.toList())));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+        }
     }
 
     @GetMapping(path = "/{id}")
-    public AreaDto getArea(@PathVariable Long id) throws Exception {
-        Optional<Area> area = areaService.retrieveArea(id);
-        if (!area.isPresent()) {
-            throw new Exception("No such data");
+    public ResponseEntity<ApiResponse<AreaDto>> getArea(@PathVariable Long id) throws Exception {
+        try {
+            return ResponseEntity
+                    .ok(new ApiResponse<>(StatusEnum.OK, modelMapper.map(areaService.retrieveArea(id), AreaDto.class)));
+        } catch (NoSuchElementException nsee) {
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.NOT_FOUND, nsee.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
         }
-        return modelMapper.map(area.get(), AreaDto.class);
     }
 
     @PostMapping
-    public Long postArea(@RequestBody AreaDto area) {
-        return areaService.insertArea(modelMapper.map(area, Area.class));
+    public ResponseEntity<ApiResponse<Long>> postArea(@RequestBody AreaDto area) {
+        try {
+            return ResponseEntity
+                    .ok(new ApiResponse<>(StatusEnum.OK, areaService.insertArea(modelMapper.map(area, Area.class))));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+        }
     }
 
     @PutMapping(path = "/{id}")
-    public void putArea(@PathVariable Long id, @RequestBody AreaDto area) {
-        areaService.updateArea(id, modelMapper.map(area, Area.class));
+    public ResponseEntity<ApiResponse<Long>> putArea(@PathVariable Long id, @RequestBody AreaDto area) {
+        try {
+            areaService.updateArea(id, modelMapper.map(area, Area.class));
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, id));
+        } catch (NoSuchElementException nsee) {
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.NOT_FOUND, nsee.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+        }
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deleteArea(@PathVariable Long id) {
-        areaService.deleteArea(id);
+    public ResponseEntity<ApiResponse<Long>> deleteArea(@PathVariable Long id) {
+        try {
+            areaService.deleteArea(id);
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, id));
+        } catch (NoSuchElementException nsee) {
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.NOT_FOUND, nsee.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+        }
     }
 }

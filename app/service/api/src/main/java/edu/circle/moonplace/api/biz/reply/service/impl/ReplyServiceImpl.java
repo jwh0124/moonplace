@@ -1,7 +1,7 @@
 package edu.circle.moonplace.api.biz.reply.service.impl;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +22,8 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public Optional<Reply> retrieveReply(Long id) {
-        return replyRepository.findById(id);
+    public Reply retrieveReply(Long id) {
+        return replyRepository.findById(id).orElseThrow(() -> new NoSuchElementException("not found replyId : " + id));
     }
 
     @Override
@@ -34,15 +34,19 @@ public class ReplyServiceImpl implements ReplyService {
 
     @Override
     public void updateReply(Long id, Reply reply) {
-        if (replyRepository.existsById(id)) {
+        replyRepository.findById(id).ifPresentOrElse(getReply -> {
             reply.setId(id);
             replyRepository.save(reply);
-        }
+        }, () -> {
+            throw new NoSuchElementException("not found replyId : " + id);
+        });
     }
 
     @Override
     public void deleteReply(Long id) {
-        replyRepository.deleteById(id);
+        replyRepository.findById(id).ifPresentOrElse(getReply -> replyRepository.deleteById(id), () -> {
+            throw new NoSuchElementException("not found replyId : " + id);
+        });
     }
 
 }

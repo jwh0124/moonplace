@@ -26,32 +26,27 @@ public class TagServiceImpl implements TagService {
         return tagRepository.findById(id).orElseThrow(() -> new NoSuchElementException("not found tagId : " + id));
     }
 
-    // TODO:
-    // [] add validation tag name
     @Override
     public Long insertTag(Tag tag) {
-
         tagRepository.save(tag);
         return tag.getId();
     }
 
-    // TODO:
-    // [] existsById -> findById
     @Override
     public void updateTag(Long id, Tag tag) {
-        if (tagRepository.existsById(id)) {
+        tagRepository.findById(id).ifPresentOrElse(getTag -> {
             tag.setId(id);
             tagRepository.save(tag);
-        }
+        }, () -> {
+            throw new NoSuchElementException("not found tagId : " + id);
+        });
     }
 
-    // TODO:
-    // [] existsById -> findById
     @Override
     public void deleteTag(Long id) {
-        if (tagRepository.existsById(id)) {
-            tagRepository.deleteById(id);
-        }
+        tagRepository.findById(id).ifPresentOrElse(tag -> tagRepository.deleteById(id), () -> {
+            throw new NoSuchElementException("not found tagId : " + id);
+        });
     }
 
 }

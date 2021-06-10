@@ -1,11 +1,12 @@
 package edu.circle.moonplace.api.biz.place.controller;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.circle.moonplace.api.biz.place.domain.Place;
 import edu.circle.moonplace.api.biz.place.dto.PlaceDto;
 import edu.circle.moonplace.api.biz.place.service.PlaceService;
+import edu.circle.moonplace.api.common.ApiResponse;
+import edu.circle.moonplace.api.common.enums.StatusEnum;
 
 @RestController
 @RequestMapping(value = "/places", produces = "application/json")
@@ -30,34 +33,58 @@ public class PlaceController {
     private ModelMapper modelMapper;
 
     @GetMapping
-    public List<PlaceDto> getPlaceList() {
-        return placeService.retrievePlaceList().stream().map(place -> modelMapper.map(place, PlaceDto.class))
-                .collect(Collectors.toList());
+    public ResponseEntity<ApiResponse<List<PlaceDto>>> getPlaceList() {
+        try {
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, placeService.retrievePlaceList().stream()
+                    .map(place -> modelMapper.map(place, PlaceDto.class)).collect(Collectors.toList())));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+        }
     }
 
     @GetMapping(path = "/{id}")
-    public PlaceDto getPlace(@PathVariable Long id) throws Exception {
-        Optional<Place> place = placeService.retrievePlace(id);
-
-        if (!place.isPresent()) {
-            throw new Exception("no such data");
+    public ResponseEntity<ApiResponse<PlaceDto>> getPlace(@PathVariable Long id) throws Exception {
+        try {
+            return ResponseEntity.ok(
+                    new ApiResponse<>(StatusEnum.OK, modelMapper.map(placeService.retrievePlace(id), PlaceDto.class)));
+        } catch (NoSuchElementException nsee) {
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.NOT_FOUND, nsee.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
         }
-
-        return modelMapper.map(place.get(), PlaceDto.class);
     }
 
     @PostMapping
-    public Long postPlace(@RequestBody PlaceDto place) {
-        return placeService.insertPlace(modelMapper.map(place, Place.class));
+    public ResponseEntity<ApiResponse<Long>> postPlace(@RequestBody PlaceDto place) {
+        try {
+            return ResponseEntity.ok(
+                    new ApiResponse<>(StatusEnum.OK, placeService.insertPlace(modelMapper.map(place, Place.class))));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+        }
     }
 
     @PutMapping(path = "/{id}")
-    public void putPlace(@PathVariable Long id, @RequestBody PlaceDto place) {
-        placeService.updatePlace(id, modelMapper.map(place, Place.class));
+    public ResponseEntity<ApiResponse<Long>> putPlace(@PathVariable Long id, @RequestBody PlaceDto place) {
+        try {
+            placeService.updatePlace(id, modelMapper.map(place, Place.class));
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, id));
+        } catch (NoSuchElementException nsee) {
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.NOT_FOUND, nsee.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+        }
     }
 
     @DeleteMapping(path = "/{id}")
-    public void deletePlace(@PathVariable Long id) {
-        placeService.deletePlace(id);
+    public ResponseEntity<ApiResponse<Long>> deletePlace(@PathVariable Long id) {
+        try {
+            placeService.deletePlace(id);
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, id));
+        } catch (NoSuchElementException nsee) {
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.NOT_FOUND, nsee.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
+        }
     }
 }

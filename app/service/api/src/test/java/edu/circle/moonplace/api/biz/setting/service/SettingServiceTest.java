@@ -53,7 +53,7 @@ public class SettingServiceTest {
         // given - beforeEach
 
         // when
-        Optional<Setting> setting = settingService.retrieveSetting(saveSetting.getId());
+        Setting setting = settingService.retrieveSetting(saveSetting.getId());
 
         // then
         Assertions.assertThat(setting).isNotNull();

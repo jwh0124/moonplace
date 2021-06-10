@@ -77,6 +77,8 @@ public class TagController {
         try {
             tagService.updateTag(id, modelMapper.map(tag, Tag.class));
             return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, id));
+        } catch (NoSuchElementException nsee) {
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.NOT_FOUND, nsee.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.status(500)
                     .body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
@@ -88,6 +90,8 @@ public class TagController {
         try {
             tagService.deleteTag(id);
             return ResponseEntity.ok(new ApiResponse<>(StatusEnum.OK, id));
+        } catch (NoSuchElementException nsee) {
+            return ResponseEntity.ok(new ApiResponse<>(StatusEnum.NOT_FOUND, nsee.getMessage()));
         } catch (Exception e) {
             return ResponseEntity.status(500)
                     .body(new ApiResponse<>(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));

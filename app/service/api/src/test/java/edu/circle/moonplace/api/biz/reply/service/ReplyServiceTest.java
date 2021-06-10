@@ -53,7 +53,7 @@ public class ReplyServiceTest {
         // given - beforeEach
 
         // when
-        Optional<Reply> reply = replyService.retrieveReply(saveReply.getId());
+        Reply reply = replyService.retrieveReply(saveReply.getId());
 
         // then
         Assertions.assertThat(reply).isNotNull();
