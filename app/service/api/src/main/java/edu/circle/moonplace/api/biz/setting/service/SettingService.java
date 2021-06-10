@@ -8,11 +8,11 @@ import edu.circle.moonplace.api.biz.setting.domain.Setting;
 public interface SettingService {
     List<Setting> retrieveSettingList();
 
-    Optional<Setting> retrieveSetting(Long settingId);
+    Optional<Setting> retrieveSetting(Long id);
 
     Long insertSetting(Setting setting);
 
-    void updateSetting(Long settingId, Setting setting);
+    void updateSetting(Long id, Setting setting);
 
-    void deleteSetting(Long settingId);
+    void deleteSetting(Long id);
 }

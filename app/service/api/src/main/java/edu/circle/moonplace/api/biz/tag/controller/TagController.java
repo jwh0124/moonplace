@@ -47,11 +47,11 @@ public class TagController {
         }
     }
 
-    @GetMapping(path = "/{tagId}")
-    public ResponseEntity<BaseResponse> getTag(@PathVariable Long tagId) {
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<BaseResponse> getTag(@PathVariable Long id) {
         try {
             return ResponseEntity
-                    .ok(new SuccessResponse<>(modelMapper.map(tagService.retrieveTag(tagId), TagDto.class)));
+                    .ok(new SuccessResponse<>(modelMapper.map(tagService.retrieveTag(id), TagDto.class)));
         } catch (NoSuchElementException nsee) {
             return ResponseEntity.ok(new FailureResponse(StatusEnum.NOT_FOUND, nsee.getMessage()));
         } catch (Exception e) {
@@ -70,22 +70,22 @@ public class TagController {
         }
     }
 
-    @PutMapping(path = "/{tagId}")
-    public ResponseEntity<BaseResponse> putTag(@PathVariable Long tagId, @RequestBody TagDto tag) {
+    @PutMapping(path = "/{id}")
+    public ResponseEntity<BaseResponse> putTag(@PathVariable Long id, @RequestBody TagDto tag) {
         try {
-            tagService.updateTag(tagId, modelMapper.map(tag, Tag.class));
-            return ResponseEntity.ok(new SuccessResponse<>(tagId));
+            tagService.updateTag(id, modelMapper.map(tag, Tag.class));
+            return ResponseEntity.ok(new SuccessResponse<>(id));
         } catch (Exception e) {
             return ResponseEntity.status(500)
                     .body(new FailureResponse(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));
         }
     }
 
-    @DeleteMapping(path = "/{tagId}")
-    public ResponseEntity<BaseResponse> deleteTag(@PathVariable Long tagId) {
+    @DeleteMapping(path = "/{id}")
+    public ResponseEntity<BaseResponse> deleteTag(@PathVariable Long id) {
         try {
-            tagService.deleteTag(tagId);
-            return ResponseEntity.ok(new SuccessResponse<>(tagId));
+            tagService.deleteTag(id);
+            return ResponseEntity.ok(new SuccessResponse<>(id));
         } catch (Exception e) {
             return ResponseEntity.status(500)
                     .body(new FailureResponse(StatusEnum.INTERNAL_SERER_ERROR, e.getMessage()));

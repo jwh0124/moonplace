@@ -8,11 +8,11 @@ import edu.circle.moonplace.api.biz.reply.domain.Reply;
 public interface ReplyService {
     List<Reply> retrieveReplyList();
 
-    Optional<Reply> retrieveReply(Long replyId);
+    Optional<Reply> retrieveReply(Long id);
 
     Long insertReply(Reply reply);
 
-    void updateReply(Long replyId, Reply reply);
+    void updateReply(Long id, Reply reply);
 
-    void deleteReply(Long replyId);
+    void deleteReply(Long id);
 }

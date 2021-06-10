@@ -35,9 +35,9 @@ public class AreaController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping(path = "/{areaId}")
-    public AreaDto getArea(@PathVariable Long areaId) throws Exception {
-        Optional<Area> area = areaService.retrieveArea(areaId);
+    @GetMapping(path = "/{id}")
+    public AreaDto getArea(@PathVariable Long id) throws Exception {
+        Optional<Area> area = areaService.retrieveArea(id);
         if (!area.isPresent()) {
             throw new Exception("No such data");
         }
@@ -49,13 +49,13 @@ public class AreaController {
         return areaService.insertArea(modelMapper.map(area, Area.class));
     }
 
-    @PutMapping(path = "/{areaId}")
-    public void putArea(@PathVariable Long areaId, @RequestBody AreaDto area) {
-        areaService.updateArea(areaId, modelMapper.map(area, Area.class));
+    @PutMapping(path = "/{id}")
+    public void putArea(@PathVariable Long id, @RequestBody AreaDto area) {
+        areaService.updateArea(id, modelMapper.map(area, Area.class));
     }
 
-    @DeleteMapping(path = "/{areaId}")
-    public void deleteArea(@PathVariable Long areaId) {
-        areaService.deleteArea(areaId);
+    @DeleteMapping(path = "/{id}")
+    public void deleteArea(@PathVariable Long id) {
+        areaService.deleteArea(id);
     }
 }

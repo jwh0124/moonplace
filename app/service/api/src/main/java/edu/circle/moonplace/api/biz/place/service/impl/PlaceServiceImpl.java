@@ -22,8 +22,8 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public Optional<Place> retrievePlace(Long placeId) {
-        return placeRepository.findById(placeId);
+    public Optional<Place> retrievePlace(Long id) {
+        return placeRepository.findById(id);
     }
 
     @Override
@@ -33,16 +33,16 @@ public class PlaceServiceImpl implements PlaceService {
     }
 
     @Override
-    public void updatePlace(Long placeId, Place place) {
-        if (placeRepository.existsById(placeId)) {
-            place.setId(placeId);
+    public void updatePlace(Long id, Place place) {
+        if (placeRepository.existsById(id)) {
+            place.setId(id);
             placeRepository.save(place);
         }
     }
 
     @Override
-    public void deletePlace(Long placeId) {
-        placeRepository.deleteById(placeId);
+    public void deletePlace(Long id) {
+        placeRepository.deleteById(id);
     }
 
 }

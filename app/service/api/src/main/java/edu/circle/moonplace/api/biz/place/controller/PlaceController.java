@@ -35,9 +35,9 @@ public class PlaceController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping(path = "/{placeId}")
-    public PlaceDto getPlace(@PathVariable Long placeId) throws Exception {
-        Optional<Place> place = placeService.retrievePlace(placeId);
+    @GetMapping(path = "/{id}")
+    public PlaceDto getPlace(@PathVariable Long id) throws Exception {
+        Optional<Place> place = placeService.retrievePlace(id);
 
         if (!place.isPresent()) {
             throw new Exception("no such data");
@@ -51,13 +51,13 @@ public class PlaceController {
         return placeService.insertPlace(modelMapper.map(place, Place.class));
     }
 
-    @PutMapping(path = "/{placeId}")
-    public void putPlace(@PathVariable Long placeId, @RequestBody PlaceDto place) {
-        placeService.updatePlace(placeId, modelMapper.map(place, Place.class));
+    @PutMapping(path = "/{id}")
+    public void putPlace(@PathVariable Long id, @RequestBody PlaceDto place) {
+        placeService.updatePlace(id, modelMapper.map(place, Place.class));
     }
 
-    @DeleteMapping(path = "/{placeId}")
-    public void deletePlace(@PathVariable Long placeId) {
-        placeService.deletePlace(placeId);
+    @DeleteMapping(path = "/{id}")
+    public void deletePlace(@PathVariable Long id) {
+        placeService.deletePlace(id);
     }
 }

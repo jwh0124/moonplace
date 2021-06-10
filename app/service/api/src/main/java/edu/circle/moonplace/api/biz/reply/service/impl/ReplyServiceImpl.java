@@ -22,8 +22,8 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public Optional<Reply> retrieveReply(Long replyId) {
-        return replyRepository.findById(replyId);
+    public Optional<Reply> retrieveReply(Long id) {
+        return replyRepository.findById(id);
     }
 
     @Override
@@ -33,16 +33,16 @@ public class ReplyServiceImpl implements ReplyService {
     }
 
     @Override
-    public void updateReply(Long replyId, Reply reply) {
-        if (replyRepository.existsById(replyId)) {
-            reply.setId(replyId);
+    public void updateReply(Long id, Reply reply) {
+        if (replyRepository.existsById(id)) {
+            reply.setId(id);
             replyRepository.save(reply);
         }
     }
 
     @Override
-    public void deleteReply(Long replyId) {
-        replyRepository.deleteById(replyId);
+    public void deleteReply(Long id) {
+        replyRepository.deleteById(id);
     }
 
 }

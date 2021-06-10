@@ -7,11 +7,11 @@ import edu.circle.moonplace.api.biz.tag.domain.Tag;
 public interface TagService {
     List<Tag> retrieveTagList();
 
-    Tag retrieveTag(Long tagId);
+    Tag retrieveTag(Long id);
 
     Long insertTag(Tag tag);
 
-    void updateTag(Long tagId, Tag tag);
+    void updateTag(Long id, Tag tag);
 
-    void deleteTag(Long tagId);
+    void deleteTag(Long id);
 }

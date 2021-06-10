@@ -22,8 +22,8 @@ public class AreaServiceImpl implements AreaService {
     }
 
     @Override
-    public Optional<Area> retrieveArea(Long areaId) {
-        return areaRepository.findById(areaId);
+    public Optional<Area> retrieveArea(Long id) {
+        return areaRepository.findById(id);
     }
 
     @Override
@@ -33,16 +33,16 @@ public class AreaServiceImpl implements AreaService {
     }
 
     @Override
-    public void updateArea(Long areaId, Area area) {
-        if (areaRepository.existsById(areaId)) {
-            area.setId(areaId);
+    public void updateArea(Long id, Area area) {
+        if (areaRepository.existsById(id)) {
+            area.setId(id);
             areaRepository.save(area);
         }
     }
 
     @Override
-    public void deleteArea(Long areaId) {
-        areaRepository.deleteById(areaId);
+    public void deleteArea(Long id) {
+        areaRepository.deleteById(id);
     }
 
 }

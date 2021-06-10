@@ -8,11 +8,11 @@ import edu.circle.moonplace.api.biz.place.domain.Place;
 public interface PlaceService {
     List<Place> retrievePlaceList();
 
-    Optional<Place> retrievePlace(Long placeId);
+    Optional<Place> retrievePlace(Long id);
 
     Long insertPlace(Place place);
 
-    void updatePlace(Long placeId, Place place);
+    void updatePlace(Long id, Place place);
 
-    void deletePlace(Long placeId);
+    void deletePlace(Long id);
 }

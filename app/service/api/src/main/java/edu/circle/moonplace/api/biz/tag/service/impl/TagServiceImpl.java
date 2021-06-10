@@ -22,9 +22,8 @@ public class TagServiceImpl implements TagService {
     }
 
     @Override
-    public Tag retrieveTag(Long tagId) {
-        return tagRepository.findById(tagId)
-                .orElseThrow(() -> new NoSuchElementException("not found tagId : " + tagId));
+    public Tag retrieveTag(Long id) {
+        return tagRepository.findById(id).orElseThrow(() -> new NoSuchElementException("not found tagId : " + id));
     }
 
     // TODO:
@@ -39,9 +38,9 @@ public class TagServiceImpl implements TagService {
     // TODO:
     // [] existsById -> findById
     @Override
-    public void updateTag(Long tagId, Tag tag) {
-        if (tagRepository.existsById(tagId)) {
-            tag.setId(tagId);
+    public void updateTag(Long id, Tag tag) {
+        if (tagRepository.existsById(id)) {
+            tag.setId(id);
             tagRepository.save(tag);
         }
     }
@@ -49,9 +48,9 @@ public class TagServiceImpl implements TagService {
     // TODO:
     // [] existsById -> findById
     @Override
-    public void deleteTag(Long tagId) {
-        if (tagRepository.existsById(tagId)) {
-            tagRepository.deleteById(tagId);
+    public void deleteTag(Long id) {
+        if (tagRepository.existsById(id)) {
+            tagRepository.deleteById(id);
         }
     }
 

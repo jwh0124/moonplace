@@ -35,9 +35,9 @@ public class ReplyController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping(path = "/{replyId}")
-    public ReplyDto getReply(@PathVariable Long replyId) throws Exception {
-        Optional<Reply> reply = replyService.retrieveReply(replyId);
+    @GetMapping(path = "/{id}")
+    public ReplyDto getReply(@PathVariable Long id) throws Exception {
+        Optional<Reply> reply = replyService.retrieveReply(id);
         if (!reply.isPresent()) {
             throw new Exception("No such data");
         }
@@ -49,14 +49,14 @@ public class ReplyController {
         return replyService.insertReply(modelMapper.map(reply, Reply.class));
     }
 
-    @PutMapping(path = "/{replyId}")
-    public void putReply(@PathVariable Long replyId, @RequestBody ReplyDto reply) {
-        replyService.updateReply(replyId, modelMapper.map(reply, Reply.class));
+    @PutMapping(path = "/{id}")
+    public void putReply(@PathVariable Long id, @RequestBody ReplyDto reply) {
+        replyService.updateReply(id, modelMapper.map(reply, Reply.class));
     }
 
-    @DeleteMapping(path = "/{replyId}")
-    public void deleteReply(@PathVariable Long replyId) {
-        replyService.deleteReply(replyId);
+    @DeleteMapping(path = "/{id}")
+    public void deleteReply(@PathVariable Long id) {
+        replyService.deleteReply(id);
     }
 
 }

@@ -45,7 +45,7 @@ public class TagControllerTest {
 
                 this.mockMvc.perform(MockMvcRequestBuilders.get("/tags/{tagId}", 1L)
                                 .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON))
-                                .andExpect(MockMvcResultMatchers.status().isNotFound())
+                                .andExpect(MockMvcResultMatchers.status().isOk())
                                 .andDo(MockMvcResultHandlers.print());
         }
 

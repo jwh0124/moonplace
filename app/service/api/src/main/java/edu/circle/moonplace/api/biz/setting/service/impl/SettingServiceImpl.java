@@ -22,8 +22,8 @@ public class SettingServiceImpl implements SettingService {
     }
 
     @Override
-    public Optional<Setting> retrieveSetting(Long settingId) {
-        return settingRepository.findById(settingId);
+    public Optional<Setting> retrieveSetting(Long id) {
+        return settingRepository.findById(id);
     }
 
     @Override
@@ -33,17 +33,17 @@ public class SettingServiceImpl implements SettingService {
     }
 
     @Override
-    public void updateSetting(Long settingId, Setting setting) {
-        if (settingRepository.existsById(settingId)) {
-            setting.setId(settingId);
+    public void updateSetting(Long id, Setting setting) {
+        if (settingRepository.existsById(id)) {
+            setting.setId(id);
             settingRepository.save(setting);
         }
     }
 
     @Override
-    public void deleteSetting(Long settingId) {
-        if (settingRepository.existsById(settingId)) {
-            settingRepository.deleteById(settingId);
+    public void deleteSetting(Long id) {
+        if (settingRepository.existsById(id)) {
+            settingRepository.deleteById(id);
         }
     }
 

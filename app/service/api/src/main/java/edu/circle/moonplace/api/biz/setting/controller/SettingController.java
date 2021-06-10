@@ -35,9 +35,9 @@ public class SettingController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping(path = "/{settingId}")
-    public SettingDto getSetting(@PathVariable Long settingId) throws Exception {
-        Optional<Setting> setting = settingService.retrieveSetting(settingId);
+    @GetMapping(path = "/{id}")
+    public SettingDto getSetting(@PathVariable Long id) throws Exception {
+        Optional<Setting> setting = settingService.retrieveSetting(id);
         if (!setting.isPresent()) {
             throw new Exception("No Such Data");
         }
@@ -49,13 +49,13 @@ public class SettingController {
         return settingService.insertSetting(modelMapper.map(setting, Setting.class));
     }
 
-    @PutMapping(path = "/{settingId}")
-    public void putSetting(@PathVariable Long settingId, @RequestBody SettingDto setting) {
-        settingService.updateSetting(settingId, modelMapper.map(setting, Setting.class));
+    @PutMapping(path = "/{id}")
+    public void putSetting(@PathVariable Long id, @RequestBody SettingDto setting) {
+        settingService.updateSetting(id, modelMapper.map(setting, Setting.class));
     }
 
-    @DeleteMapping(path = "/{settingId}")
-    public void deleteSetting(@PathVariable Long settingId) {
-        settingService.deleteSetting(settingId);
+    @DeleteMapping(path = "/{id}")
+    public void deleteSetting(@PathVariable Long id) {
+        settingService.deleteSetting(id);
     }
 }
