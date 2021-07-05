@@ -1,14 +1,20 @@
 package edu.circle.moonplace.api.biz.place.domain;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import edu.circle.moonplace.api.biz.area.domain.Area;
 import edu.circle.moonplace.api.common.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -47,4 +53,12 @@ public class Place extends BaseEntity {
 
     @Column(name = "visitDt")
     private LocalDateTime visitDt;
+
+    @OneToOne
+    @JoinColumn(name = "areaId")
+    private Area area;
+
+    // TODO : Lazy loading
+    @OneToMany(mappedBy = "place", fetch = FetchType.EAGER)
+    private List<PlaceImage> placeImage;
 }

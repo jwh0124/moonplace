@@ -1,7 +1,6 @@
 package edu.circle.moonplace.api.biz.place.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,24 +13,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PlaceDto {
+public class PlaceImageDto {
     private Long id;
 
-    private String name;
-
-    private String addr;
-
-    private String phone;
-
-    private Integer rate;
-
-    private String description;
-
-    private LocalDateTime visitDt;
+    private String path;
 
     private LocalDateTime createDt;
 
     private LocalDateTime updateDt;
-
-    private List<PlaceImageDto> placeImage;
 }
