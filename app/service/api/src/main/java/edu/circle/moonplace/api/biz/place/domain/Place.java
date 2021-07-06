@@ -10,11 +10,15 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import edu.circle.moonplace.api.biz.area.domain.Area;
+import edu.circle.moonplace.api.biz.reply.domain.Reply;
+import edu.circle.moonplace.api.biz.tag.domain.Tag;
 import edu.circle.moonplace.api.common.base.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -58,7 +62,14 @@ public class Place extends BaseEntity {
     @JoinColumn(name = "areaId")
     private Area area;
 
-    // TODO : Lazy loading
     @OneToMany(mappedBy = "place", fetch = FetchType.EAGER)
     private List<PlaceImage> placeImage;
+
+    @ManyToMany
+    @JoinTable(name = "place_reply", joinColumns = @JoinColumn(name = "place_id"), inverseJoinColumns = @JoinColumn(name = "reply_id"))
+    private List<Reply> reply;
+
+    @ManyToMany
+    @JoinTable(name = "place_tag", joinColumns = @JoinColumn(name = "place_id"), inverseJoinColumns = @JoinColumn(name = "tag_id"))
+    private List<Tag> tag;
 }
