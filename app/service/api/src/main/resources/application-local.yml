@@ -7,4 +7,4 @@ spring:
       maximum-pool-size: 4
     url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
-    password: cubox2020!
+    password: circle0124
